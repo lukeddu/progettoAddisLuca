@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Projects</title>
+</head>
+<body>
+<h1>My Projects</h1>
+<div>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tr th:each ="project: ${projects}">
+<td><a th:href="'/projects/'+ ${project.id}"  th:text="${project.name}">...</a></td>
+<td th:text="${project.description}">..</td>
+<td><form method="POST" th:action="@{/projects/{projectId}/delete(projectId=${project.id})}" >
+<button type="submit" name="submit">DELETE</button>
+</form>
+<td>
+<td><form method="GET" th:action="@{/projects/{projectId}/update(projectId=${project.id})}" >
+<button type="submit" name="submit">UPDATE</button>
+</form></td>
+<td> <form method="POST" th:action="@{/projects/{projectId}/share(projectId=${project.id})}" >
+<input id=shareProject type="text" placeholder="INSERISCI IL NOME DI UN UTENTE"  name="username"/>
+<button type="submit" name="submit">SHARE</button></form>
+</td>
+</tr>
+</table>
+</div>
+</body>
+</html>
