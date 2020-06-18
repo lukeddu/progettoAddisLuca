@@ -8,6 +8,8 @@ import it.uniroma3.siw.taskmanager.model.User;
 import it.uniroma3.siw.taskmanager.repository.UserRepository;
 import it.uniroma3.siw.taskmanager.service.CredentialsService;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 
 @Controller
 public class UserController {
@@ -102,4 +106,20 @@ public class UserController {
         return "updateProfile";
     }
 
+    @RequestMapping(value= {"/admin/users"}, method= RequestMethod.GET)
+    public String usersList(Model model) {
+    	User loggedUser=this.sessionData.getLoggedUser();
+    	List<Credentials> credentialsList=this.credentialsService.getAllCredentials();
+    	
+    	model.addAttribute("loggedUser", loggedUser);
+    	model.addAttribute("credentialsList", credentialsList);
+    	return "allUsers";
+    }
+    
+    @RequestMapping(value= {"/admin/users/{username}/delete"}, method=RequestMethod.POST)
+    public String removeUser(Model model, @PathVariable String username) {
+    	this.credentialsService.deleteCredentials(username);
+    	return "redirect:/admin/users";
+    }
+    
 }

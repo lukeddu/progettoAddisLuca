@@ -46,4 +46,14 @@ public class CredentialsService {
             result.add(credentials);
         return result;
     }
+    @Transactional
+	public void deleteCredentials(Credentials credentials) {
+		this.credentialsRepository.delete(credentials);
+	}
+    
+    @Transactional
+    public void deleteCredentials(String username) {
+    	Credentials credentials=this.getCredentials(username);
+    	this.credentialsRepository.delete(credentials);
+    }
 }
