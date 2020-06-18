@@ -146,7 +146,7 @@ public class ProjectController {
 		projectService.shareProjectWithUser(project, credentials.getUser());
 		return "redirect:/projects/" +projectId;
 		}
-		return "redirect:/home";
+		return "redirect:/projects";
 	}
 	
 }
