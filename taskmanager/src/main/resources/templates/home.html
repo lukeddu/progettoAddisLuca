@@ -12,7 +12,7 @@
 <h4><a href="/projectsShared">Shared with me</a></h4>
 <h4><a href="/projects/add">Create new Project</a></h4>
 <h4><a href="/users/me">Profile</a></h4>
+<h4><span th:if="${credentials.role} ==ADMIN "> <a href="/admin">Admin</a></span></h4>
 <h4><a href="/logout">Logout</a></h4>
-
 </body>
 </html>
